@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title:
     "BizAarambh",
   description: "Startup for the future",
+  icons: {
+    icon: "./public/images/logo/logo.svg",
+  },
 };
 
 export default function Home() {
