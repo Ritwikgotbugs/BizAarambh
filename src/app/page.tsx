@@ -105,6 +105,7 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Budget Summarizer Tool */}
             <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
               <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 transition-colors">
                 <svg
@@ -118,7 +119,7 @@ export default function Home() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
                   />
                 </svg>
               </div>
@@ -195,103 +196,82 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Project SDG
+              Supporting UN Sustainable Development Goals
             </h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Supporting sustainable development goals through entrepreneurship
+              Contributing to global sustainability through entrepreneurship
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-12 border border-gray-100">
-            <div className="flex flex-wrap items-center">
-              <div className="w-full md:w-3/12 px-4 mb-8 md:mb-0">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                  Our Impact
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative h-48 w-full">
+                <Image
+                  src="/sdg-8.png"
+                  alt="SDG 8 - Decent Work and Economic Growth"
+                  fill
+                  className="object-contain p-4"
+                />
+              </div>
+              <div className="p-6 bg-gradient-to-br from-blue-50 to-transparent">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                  Goal 8
                 </h3>
+                <p className="text-lg font-medium text-blue-600 mb-4">
+                  Decent Work and Economic Growth
+                </p>
                 <p className="text-gray-600">
-                  Aligned with UN Sustainable Development Goals
+                  Supporting sustainable business models and creating quality
+                  employment opportunities.
                 </p>
               </div>
-              <div className="w-full md:w-9/12 px-4">
-                <ul className="space-y-6">
-                  <li className="flex items-start">
-                    <span className="bg-red-600 text-white rounded-lg w-10 h-10 flex items-center justify-center mr-4 mt-1 shadow-lg">
-                      8
-                    </span>
-                    <div>
-                      <p className="font-bold text-xl text-gray-800">
-                        Goal 8: Decent Work & Economic Growth
-                      </p>
-                      <p className="text-gray-600 mt-1">
-                        By fostering entrepreneurship and creating sustainable
-                        business opportunities
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="bg-orange-500 text-white rounded-lg w-10 h-10 flex items-center justify-center mr-4 mt-1 shadow-lg">
-                      9
-                    </span>
-                    <div>
-                      <p className="font-bold text-xl text-gray-800">
-                        Goal 9: Industry, Innovation & Infrastructure
-                      </p>
-                      <p className="text-gray-600 mt-1">
-                        By promoting digital business solutions and
-                        technological advancement
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="bg-pink-600 text-white rounded-lg w-10 h-10 flex items-center justify-center mr-4 mt-1 shadow-lg">
-                      10
-                    </span>
-                    <div>
-                      <p className="font-bold text-xl text-gray-800">
-                        Goal 10: Reduced Inequalities
-                      </p>
-                      <p className="text-gray-600 mt-1">
-                        By democratizing access to government funding & business
-                        knowledge for all entrepreneurs
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-pink-500 to-pink-700 rounded-2xl p-8 h-full text-white shadow-xl transform transition-transform hover:scale-105">
-              <div className="text-7xl font-bold mb-6 opacity-90">10</div>
-              <div className="text-2xl font-bold uppercase mb-4">
-                Reduced Inequalities
-              </div>
-              <p className="text-pink-100">
-                Creating equal opportunities for entrepreneurs from all
-                backgrounds
-              </p>
             </div>
 
-            <div className="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-8 h-full text-white shadow-xl transform transition-transform hover:scale-105">
-              <div className="text-7xl font-bold mb-6 opacity-90">8</div>
-              <div className="text-2xl font-bold uppercase mb-4">
-                Decent Work and Economic Growth
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative h-48 w-full">
+                <Image
+                  src="/sdg-9.png"
+                  alt="SDG 9 - Industry, Innovation and Infrastructure"
+                  fill
+                  className="object-contain p-4"
+                />
               </div>
-              <p className="text-red-100">
-                Supporting sustainable business models that create quality jobs
-              </p>
+              <div className="p-6 bg-gradient-to-br from-blue-50 to-transparent">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                  Goal 9
+                </h3>
+                <p className="text-lg font-medium text-blue-600 mb-4">
+                  Industry, Innovation and Infrastructure
+                </p>
+                <p className="text-gray-600">
+                  Fostering technological advancement and digital transformation
+                  in businesses.
+                </p>
+              </div>
             </div>
 
-            <div className="bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl p-8 h-full text-white shadow-xl transform transition-transform hover:scale-105">
-              <div className="text-7xl font-bold mb-6 opacity-90">9</div>
-              <div className="text-2xl font-bold uppercase mb-4">
-                Industry, Innovation and Infrastructure
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative h-48 w-full">
+                <Image
+                  src="/sdg-10.png"
+                  alt="SDG 10 - Reduced Inequalities"
+                  fill
+                  className="object-contain p-4"
+                />
               </div>
-              <p className="text-orange-100">
-                Fostering technological advancement and digital transformation
-              </p>
+              <div className="p-6 bg-gradient-to-br from-blue-50 to-transparent">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                  Goal 10
+                </h3>
+                <p className="text-lg font-medium text-blue-600 mb-4">
+                  Reduced Inequalities
+                </p>
+                <p className="text-gray-600">
+                  Creating equal opportunities for entrepreneurs from all
+                  backgrounds.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -326,7 +306,7 @@ export default function Home() {
                 </p>
                 <div className="mt-auto pt-6">
                   <Link
-                    href="/about"
+                    href="/aboutUs"
                     className="inline-block bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-lg transition-colors backdrop-blur-sm"
                   >
                     Learn More
@@ -713,7 +693,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="group-hover:text-white transition-colors">
-                    Mumbai, India
+                    Chennai, India
                   </span>
                 </li>
               </ul>

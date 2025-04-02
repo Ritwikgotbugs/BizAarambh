@@ -9,7 +9,7 @@ const AboutUsPage = () => {
     {
       name: "Anish Agrawal",
       role: "Co-Founder & Developer",
-      image: "/anish.jpg", // Add your image to the public folder
+      image: "/anish.jpg",
       quote:
         "Our vision is to simplify the entrepreneurial journey in India by providing a comprehensive platform that guides aspiring business owners through every step of their startup journey.",
       linkedin: "https://linkedin.com/in/your-profile",
@@ -17,7 +17,7 @@ const AboutUsPage = () => {
     {
       name: "Farhan Alam",
       role: "Co-Founder & Developer",
-      image: "/farhan.jpg", // Add your image to the public folder
+      image: "/farhan.jpeg", // Updated image extension to .jpeg
       quote:
         "We believe that everyone deserves the opportunity to turn their business dreams into reality. StartKaro is our contribution to making that possible.",
       linkedin: "https://linkedin.com/in/your-profile",
