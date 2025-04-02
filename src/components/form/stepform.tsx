@@ -7,8 +7,8 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "../ui/switch";
-import { watch } from "fs";
+import { Toggle } from "@/components/ui/toggle";
+import ProgressBar from "@/components/form/bar";
 
 const stepSchemas = [
   z.object({
@@ -100,48 +100,12 @@ const StepForm = () => {
               <Input {...register("businessName")} placeholder="Business Name" />
               <Input {...register("businessType")} placeholder="Business Type" />
               <Input {...register("businessAddress")} placeholder="Business Address" />
-
-              <div className="flex items-center">
-                <Switch
-                  checked={!!watch("registeredOffice")}
-                  onCheckedChange={(v) => setValue("registeredOffice", v)}
-                />
-                <label className="ml-2">Registered Office?</label>
-              </div>
-
+              <Toggle onPressedChange={(v) => setValue("registeredOffice", v)}>Registered Office?</Toggle>
               <Input {...register("businessCategory")} placeholder="Business Category" />
-
-              <div className="flex items-center">
-                <Switch
-                  checked={!!watch("servesAlcohol")}
-                  onCheckedChange={(v) => setValue("servesAlcohol", v)}
-                />
-                <label className="ml-2">Serves Alcohol?</label>
-              </div>
-
-              <div className="flex items-center">
-                <Switch
-                  checked={!!watch("playsMusic")}
-                  onCheckedChange={(v) => setValue("playsMusic", v)}
-                />
-                <label className="ml-2">Plays Music?</label>
-              </div>
-
-              <div className="flex items-center">
-                <Switch
-                  checked={!!watch("onlineOrdering")}
-                  onCheckedChange={(v) => setValue("onlineOrdering", v)}
-                />
-                <label className="ml-2">Online Ordering?</label>
-              </div>
-
-              <div className="flex items-center">
-                <Switch
-                  checked={!!watch("manufacturesFood")}
-                  onCheckedChange={(v) => setValue("manufacturesFood", v)}
-                />
-                <label className="ml-2">Manufactures Food?</label>
-              </div>
+              <Toggle onPressedChange={(v) => setValue("servesAlcohol", v)}>Serves Alcohol?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("playsMusic", v)}>Plays Music?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("onlineOrdering", v)}>Online Ordering?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("manufacturesFood", v)}>Manufactures Food?</Toggle>
             </>
           )}
 
@@ -153,80 +117,55 @@ const StepForm = () => {
                 {...register("employeesCount", { valueAsNumber: true })}
                 type="number"
                 placeholder="Number of Employees"
-              />
-
-              <div className="flex items-center">
-                <Switch
-                  checked={!!watch("foodHandlers")}
-                  onCheckedChange={(v) => setValue("foodHandlers", v)}
                 />
-                <label className="ml-2">Employees Handle Food?</label>
-              </div>
 
-              <div className="flex items-center">
-                <Switch
-                  checked={!!watch("medicallyFit")}
-                  onCheckedChange={(v) => setValue("medicallyFit", v)}
-                />
-                <label className="ml-2">Medically Fit Employees?</label>
-              </div>
+              <Toggle onPressedChange={(v) => setValue("foodHandlers", v)}>Employees Handle Food?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("medicallyFit", v)}>Medically Fit Employees?</Toggle>
             </>
           )}
 
           {step === 3 && (
             <>
-              {["fssaiLicense", "foodSafetyPlan", "wasteDisposalPlan", "environmentalClearance", "waterTesting"].map(
-                (field) => (
-                  <div key={field} className="flex items-center">
-                    <Switch checked={!!watch(field)} onCheckedChange={(v) => setValue(field, v)} />
-                    <label className="ml-2">{field.replace(/([A-Z])/g, " $1").trim()}?</label>
-                  </div>
-                )
-              )}
+              <Toggle onPressedChange={(v) => setValue("fssaiLicense", v)}>FSSAI License?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("foodSafetyPlan", v)}>Food Safety Plan?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("wasteDisposalPlan", v)}>Waste Disposal Plan?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("environmentalClearance", v)}>Environmental Clearance?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("waterTesting", v)}>Water Testing?</Toggle>
             </>
           )}
 
           {step === 4 && (
             <>
-              {["fireSafetyPlan", "fireNOC", "buildingLayout", "sanitationMeasures", "signageBoard"].map((field) => (
-                <div key={field} className="flex items-center">
-                  <Switch checked={!!watch(field)} onCheckedChange={(v) => setValue(field, v)} />
-                  <label className="ml-2">{field.replace(/([A-Z])/g, " $1").trim()}?</label>
-                </div>
-              ))}
+              <Toggle onPressedChange={(v) => setValue("fireSafetyPlan", v)}>Fire Safety Plan?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("fireNOC", v)}>Fire NOC?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("buildingLayout", v)}>Building Layout?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("sanitationMeasures", v)}>Sanitation Measures?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("signageBoard", v)}>Signage Board?</Toggle>
             </>
           )}
 
           {step === 5 && (
             <>
-              {["servesAlcohol", "operatesBar", "playsMusic", "ownsFoodTruck"].map((field) => (
-                <div key={field} className="flex items-center">
-                  <Switch checked={!!watch(field)} onCheckedChange={(v) => setValue(field, v)} />
-                  <label className="ml-2">{field.replace(/([A-Z])/g, " $1").trim()}?</label>
-                </div>
-              ))}
+              <Toggle onPressedChange={(v) => setValue("servesAlcohol", v)}>Serves Alcohol?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("operatesBar", v)}>Operates Bar?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("playsMusic", v)}>Plays Music?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("ownsFoodTruck", v)}>Owns Food Truck?</Toggle>
             </>
           )}
 
           {step === 6 && (
             <>
-              {["trademarkRegistered", "onlineOrdering", "privacyPolicy", "patentsFiled"].map((field) => (
-                <div key={field} className="flex items-center">
-                  <Switch checked={!!watch(field)} onCheckedChange={(v) => setValue(field, v)} />
-                  <label className="ml-2">{field.replace(/([A-Z])/g, " $1").trim()}?</label>
-                </div>
-              ))}
+              <Toggle onPressedChange={(v) => setValue("trademarkRegistered", v)}>Trademark Registered?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("onlineOrdering", v)}>Online Ordering?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("privacyPolicy", v)}>Privacy Policy?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("patentsFiled", v)}>Patents Filed?</Toggle>
             </>
           )}
 
           {step === 7 && (
             <>
-              {["rtoClearance", "municipalityNOC"].map((field) => (
-                <div key={field} className="flex items-center">
-                  <Switch checked={!!watch(field)} onCheckedChange={(v) => setValue(field, v)} />
-                  <label className="ml-2">{field.replace(/([A-Z])/g, " $1").trim()}?</label>
-                </div>
-              ))}
+              <Toggle onPressedChange={(v) => setValue("rtoClearance", v)}>RTO Clearance?</Toggle>
+              <Toggle onPressedChange={(v) => setValue("municipalityNOC", v)}>Municipality NOC?</Toggle>
             </>
           )}
 
@@ -247,4 +186,5 @@ const StepForm = () => {
     </Card>
   );
 };
+
 export default StepForm;
