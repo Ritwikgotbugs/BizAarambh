@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Search, Filter, Calendar, Tag, Clock, MoreHorizontal, Trash2, Edit } from "lucide-react";
+import {
+  Search,
+  Filter,
+  Calendar,
+  Tag,
+  Clock,
+  MoreHorizontal,
+  Trash2,
+  Edit,
+} from "lucide-react";
 import { db } from "../firebase/config";
-import { collection, doc, setDoc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 
 interface Task {
   id: string;
@@ -69,20 +85,20 @@ const KanbanBoard = () => {
       try {
         // Reference to the kanban document in Firestore
         const kanbanRef = doc(db, "kanban", "columns");
-        
+
         // Set up a real-time listener for changes
         const unsubscribe = onSnapshot(kanbanRef, (docSnapshot) => {
           if (docSnapshot.exists()) {
             const data = docSnapshot.data();
             if (data.columns) {
               setColumns(data.columns);
-              
+
               // Extract all unique tags from tasks
               const tags = new Set<string>();
               Object.values(data.columns).forEach((column: Column) => {
-                column.tasks.forEach(task => {
+                column.tasks.forEach((task) => {
                   if (task.tags) {
-                    task.tags.forEach(tag => tags.add(tag));
+                    task.tags.forEach((tag) => tags.add(tag));
                   }
                 });
               });
@@ -115,12 +131,12 @@ const KanbanBoard = () => {
             setDoc(kanbanRef, { columns: defaultColumns });
           }
         });
-        
+
         // Clean up the listener when component unmounts
         return () => unsubscribe();
       } catch (error) {
         console.error("Error fetching data from Firebase:", error);
-        
+
         // Fallback to localStorage if Firebase fails
         const savedColumns = localStorage.getItem("kanbanColumns");
         if (savedColumns) {
@@ -128,7 +144,7 @@ const KanbanBoard = () => {
         }
       }
     };
-    
+
     fetchData();
   }, []);
 
@@ -137,10 +153,10 @@ const KanbanBoard = () => {
     const saveToFirebase = async () => {
       try {
         const kanbanRef = doc(db, "kanban", "columns");
-        
+
         // Check if document exists first
         const docSnap = await getDoc(kanbanRef);
-        
+
         if (docSnap.exists()) {
           await updateDoc(kanbanRef, { columns });
         } else {
@@ -148,19 +164,19 @@ const KanbanBoard = () => {
         }
       } catch (error) {
         console.error("Error saving to Firebase:", error);
-        
+
         // Fallback to localStorage
         localStorage.setItem("kanbanColumns", JSON.stringify(columns));
       }
     };
-    
+
     // Skip the initial render
-    if (Object.values(columns).some(column => column.tasks.length > 0)) {
+    if (Object.values(columns).some((column) => column.tasks.length > 0)) {
       // Debounce the save operation to avoid too many writes
       const timeoutId = setTimeout(() => {
         saveToFirebase();
       }, 500);
-      
+
       return () => clearTimeout(timeoutId);
     }
   }, [columns]);
@@ -308,19 +324,19 @@ const KanbanBoard = () => {
 
   const addTagToTask = () => {
     if (!newTag.trim()) return;
-    
+
     setNewTask((prev) => ({
       ...prev,
       tags: [...(prev.tags || []), newTag.trim()],
     }));
-    
+
     setNewTag("");
   };
 
   const removeTagFromTask = (tagToRemove: string) => {
     setNewTask((prev) => ({
       ...prev,
-      tags: (prev.tags || []).filter(tag => tag !== tagToRemove),
+      tags: (prev.tags || []).filter((tag) => tag !== tagToRemove),
     }));
   };
 
@@ -369,16 +385,18 @@ const KanbanBoard = () => {
 
   // Filter tasks based on search term, priority, and tags
   const getFilteredTasks = (tasks: Task[]) => {
-    return tasks.filter(task => {
-      const matchesSearch = searchTerm === "" || 
+    return tasks.filter((task) => {
+      const matchesSearch =
+        searchTerm === "" ||
         task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         task.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesPriority = filterPriority === null || task.priority === filterPriority;
-      
-      const matchesTag = selectedTag === null || 
-        (task.tags && task.tags.includes(selectedTag));
-      
+
+      const matchesPriority =
+        filterPriority === null || task.priority === filterPriority;
+
+      const matchesTag =
+        selectedTag === null || (task.tags && task.tags.includes(selectedTag));
+
       return matchesSearch && matchesPriority && matchesTag;
     });
   };
@@ -389,7 +407,7 @@ const KanbanBoard = () => {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     if (date.toDateString() === today.toDateString()) {
       return "Today";
     } else if (date.toDateString() === tomorrow.toDateString()) {
@@ -424,7 +442,7 @@ const KanbanBoard = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
+
           <div className="flex gap-2 items-center">
             <div className="relative">
               <select
@@ -441,7 +459,7 @@ const KanbanBoard = () => {
                 <Filter className="h-4 w-4 text-gray-400" />
               </div>
             </div>
-            
+
             {availableTags.length > 0 && (
               <div className="relative">
                 <select
@@ -450,8 +468,10 @@ const KanbanBoard = () => {
                   className="pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none appearance-none"
                 >
                   <option value="">All Tags</option>
-                  {availableTags.map(tag => (
-                    <option key={tag} value={tag}>{tag}</option>
+                  {availableTags.map((tag) => (
+                    <option key={tag} value={tag}>
+                      {tag}
+                    </option>
                   ))}
                 </select>
                 <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
@@ -459,8 +479,8 @@ const KanbanBoard = () => {
                 </div>
               </div>
             )}
-            
-            <button 
+
+            <button
               onClick={() => {
                 setSearchTerm("");
                 setFilterPriority(null);
@@ -478,7 +498,7 @@ const KanbanBoard = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 h-full min-w-max">
           {Object.values(columns).map((column) => {
             const filteredTasks = getFilteredTasks(column.tasks);
-            
+
             return (
               <div
                 key={column.id}
@@ -518,30 +538,34 @@ const KanbanBoard = () => {
                     <div
                       key={task.id}
                       draggable
-                      onDragStart={(e) => handleDragStart(e, task.id, column.id)}
+                      onDragStart={(e) =>
+                        handleDragStart(e, task.id, column.id)
+                      }
                       onDragEnd={handleDragEnd}
                       className={`bg-white p-4 rounded-md shadow-sm hover:shadow transition-all duration-200 border-l-4 ${getTaskBorderColor(
                         column.id
                       )} transform hover:-translate-y-1 cursor-pointer relative group`}
                     >
                       <div className="flex justify-between items-start">
-                        <h4 
+                        <h4
                           className="font-medium text-gray-800"
                           onClick={() => openEditTaskModal(column.id, task)}
                         >
                           {task.title}
                         </h4>
                         <div className="relative">
-                          <button 
+                          <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              setShowTaskMenu(showTaskMenu === task.id ? null : task.id);
+                              setShowTaskMenu(
+                                showTaskMenu === task.id ? null : task.id
+                              );
                             }}
                             className="p-1 rounded-full hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity"
                           >
                             <MoreHorizontal className="h-4 w-4 text-gray-500" />
                           </button>
-                          
+
                           {showTaskMenu === task.id && (
                             <div className="absolute right-0 mt-1 w-36 bg-white rounded-md shadow-lg z-10 border border-gray-200">
                               <div className="py-1">
@@ -571,24 +595,27 @@ const KanbanBoard = () => {
                           )}
                         </div>
                       </div>
-                      
-                      <p 
+
+                      <p
                         className="text-sm text-gray-600 mt-1 line-clamp-2"
                         onClick={() => openEditTaskModal(column.id, task)}
                       >
                         {task.description}
                       </p>
-                      
+
                       {task.tags && task.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-2">
-                          {task.tags.map(tag => (
-                            <span key={tag} className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200">
+                          {task.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200"
+                            >
                               {tag}
                             </span>
                           ))}
                         </div>
                       )}
-                      
+
                       <div className="flex justify-between items-center mt-3 pt-2 border-t border-gray-100">
                         <span
                           className={`text-xs font-medium px-2 py-1 rounded-md ${getPriorityColor(
@@ -597,14 +624,20 @@ const KanbanBoard = () => {
                         >
                           {task.priority}
                         </span>
-                        <span className={`text-xs flex items-center gap-1 ${isOverdue(task.dueDate) ? 'text-red-500' : 'text-gray-500'}`}>
+                        <span
+                          className={`text-xs flex items-center gap-1 ${
+                            isOverdue(task.dueDate)
+                              ? "text-red-500"
+                              : "text-gray-500"
+                          }`}
+                        >
                           <Calendar className="h-3 w-3" />
                           {formatDate(task.dueDate)}
                         </span>
                       </div>
                     </div>
                   ))}
-                  
+
                   {filteredTasks.length === 0 && (
                     <div className="flex flex-col items-center justify-center h-32 text-gray-400 text-sm">
                       <p>No tasks found</p>
@@ -631,8 +664,14 @@ const KanbanBoard = () => {
 
       {/* Task Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowModal(false)}>
-          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-xl" onClick={e => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="bg-white rounded-lg p-6 w-full max-w-md shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 className="text-xl font-bold mb-4 text-gray-800">
               {editingTask ? "Edit Task" : "Add New Task"}
             </h3>
@@ -700,12 +739,13 @@ const KanbanBoard = () => {
                       setNewTask({ ...newTask, dueDate: e.target.value })
                     }
                     className="w-full p-2 pl-3 pr-10 border border-gray-300 rounded-md cursor-pointer focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-                    style={{ colorScheme: 'light' }}
+                    style={{ colorScheme: "light" }}
                   />
-                  <div 
+                  <div
                     className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
                     onClick={() => {
-                      const dateInput = document.querySelector('input[type="date"]');
+                      const dateInput =
+                        document.querySelector('input[type="date"]');
                       if (dateInput) {
                         (dateInput as HTMLElement).click();
                         (dateInput as HTMLElement).focus();
@@ -722,20 +762,21 @@ const KanbanBoard = () => {
                   Tags
                 </label>
                 <div className="flex flex-wrap gap-1 mb-2">
-                  {newTask.tags && newTask.tags.map(tag => (
-                    <span 
-                      key={tag} 
-                      className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full border border-blue-200 flex items-center"
-                    >
-                      {tag}
-                      <button 
-                        onClick={() => removeTagFromTask(tag)}
-                        className="ml-1 text-blue-700 hover:text-blue-900"
+                  {newTask.tags &&
+                    newTask.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full border border-blue-200 flex items-center"
                       >
-                        ×
-                      </button>
-                    </span>
-                  ))}
+                        {tag}
+                        <button
+                          onClick={() => removeTagFromTask(tag)}
+                          className="ml-1 text-blue-700 hover:text-blue-900"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
                 </div>
                 <div className="flex">
                   <input
@@ -745,7 +786,7 @@ const KanbanBoard = () => {
                     className="flex-grow p-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                     placeholder="Add a tag"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
+                      if (e.key === "Enter") {
                         e.preventDefault();
                         addTagToTask();
                       }
