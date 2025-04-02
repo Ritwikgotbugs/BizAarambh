@@ -29,6 +29,11 @@ const navItems: NavItem[] = [
     name: "Profile",
     path: "/profile",
   },
+  {
+    icon: <UserIcon className="w-5 h-5" />,
+    name: "Onboarding",
+    path: "/onboarding",
+  }
 
 ];
 
